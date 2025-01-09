@@ -1,25 +1,8 @@
-% 螺旋桨基频检测器
-% [data,FS]=audioread('InRoom4.wav');
-% [data,FS]=wavread('InRoom8.wav');
-% 221101 修改为从X:ad.i16中读取采样文件的版本。
-
-% FS=44100;
-% fname='InRoom.44100.f32'
-% fid=fopen(fname,'rb');
-% data=fread(fid,'float32');
-% fclose(fid);
-% 
-% tt=(1:length(data))/FS;
-% figure(1);
-% plot(tt,data);
-% xlabel('time /s');
-% title(['信号波形 ',fname]);
-
-
+% Reading a sample file from X:ad.i16
 FS=16000;
 
 adFileName='x:\ad.i16';
-fH=5000;%频率分析上限
+fH=5000;%the upbound of freq
 
 line_iast=[];
 line_num2=0;
@@ -31,9 +14,6 @@ bUAV=0;
 ti=0;
 fileCnt=-1;
 while (1)
-% for ti=1:length(tt)%每秒一次
-%     idx=(1:FS)+(ti-1)*FS;
-%     d1=data(idx);
     fid=fopen(adFileName,'rb');
     while fid<=0
         disp([adFileName 'is not exist!']);
@@ -46,7 +26,7 @@ while (1)
         head=fread(fid,4,'int16');        
     end
     
-    if fileCnt~=head(1)%新的数据帧
+    if fileCnt~=head(1) % new data frame
         ti=ti+1;
         FLEN=head(4);
 
@@ -75,19 +55,18 @@ while (1)
         fidx=1:ceil(fH/(f_o(2)));
         figure(2);
         subplot(2,2,4);imagesc(f_o(fidx),1:length(D2_TF(:,1)),log10(D2_TF(:,fidx)));
-        % imagesc(f_o(1:1000),t_o,(D_TF(:,1:1000)));
         xlabel('freq /Hz');
         ylabel('time /s');
-        title('时频谱');
+        title('time spectrum');
 
         subplot(2,2,2);plot(f_o(fidx),D_TF(fidx));
-        title('功率谱');
+        title('power spectrum');
         [line_ias,line_num]=line_detect_be_func(D_TF(fidx),15,6,6,10);
         bFreqTmp=zeros(1,4);
         bFreqCnt=0;
 
         if line_num>0
-            %谐波判断
+            % harmonic decision
             line_fab=[f_o(line_ias(:,1)).',line_ias(:,2),zeros(line_num,1)];
             for bi=1:(line_num-1)
                for bii=(bi+1):line_num
@@ -95,8 +74,8 @@ while (1)
                    if abs(line_fab(bi,1)-line_fab(bii,1)/nn)<DF
                        line_fab(bi,3)=line_fab(bi,3)+1;
                    end
-               end%for bii=2:line_num
-            end%for bi=1:(line_num-1)
+               end
+            end
 
             hold on;
             plot(f_o(line_ias(:,1)),line_ias(:,2),'b*');
@@ -127,16 +106,16 @@ while (1)
         t_wav=(1:length(dwav))*100/FS;
         plot(t_wav,dwav,'b',t_wav,dwav2,'r',t_wav,dwav*0,'b');
         axis('tight');
-        title('信号波形');
+        title('waveform of signal');
 
         subplot(2,2,3);
         plot(baseFreq,'b.');
         axis([0  60  0  1000]);
-        title(['基频 ',num2str(round(baseFreq(60,:)*10)/10)]);
+        title(['base freq',num2str(round(baseFreq(60,:)*10)/10)]);
 
-    end%if fileCnt~=head(1)%新的数据帧
+    end
     fclose(fid);
     pause(0.01);
-end%while (1)
+end
 
 

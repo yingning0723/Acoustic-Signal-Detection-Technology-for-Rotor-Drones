@@ -1,0 +1,7 @@
+先安装MCRInstaller.exe，然后运行AD_F.exe
+
+数据存储文件  x:\ad.i16
+
+16位整数,4+FS个数
+cnt，0，FS，LEN（数据部分长度）
+dat_0，dat_1,...,dat_(FS-1)

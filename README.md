@@ -1,3 +1,16 @@
+# Introduction
+Based on the **GUI** development platform of **MATLAB**, through the human-computer interaction design and algorithm design, a set of **real-time** detection software for the acoustic signals of rotor drones is designed by using the principles of signal sensing and sampling, the characteristic differences between the radiated noise signals of the rotor drones and the ambient noises as well as the signal adjudication methods.
+
+There exist two parts:
+
+The first is the **feature extraction** module. 
+
+By reading the acoustic signals acquired in real time from the above virtual X-disk, converting them from the time domain to the time-frequency domain using STFT transform, and further extracting the frequency domain information using the addition of the window integration method, the frequency spectrum, power spectrum and feature points of the real-time acoustic signals are obtained.
+
+The second is the **target detection** module.
+
+The extracted potential feature points are used to determine whether there is a harmonic set of drone noise through the harmonic set detection and screening algorithm, which is used as a criterion to realize the detection system of drone acoustic signals. At the same time, when the system detects the existence of harmonic sets of drone noise signals, the corresponding waveforms and spectral feature points will be marked in red and accompanied by an alarm sound to remind the system, which is a more intuitive reflection of the role of the detection system.
+
 # How to run
 first install MCRInstaller.exe
 \

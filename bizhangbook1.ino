@@ -1,6 +1,3 @@
-//B站找 ：arduino捣鼓室 欢迎大家评论区一起交流！如有不足请大家指正 共同进步！谢谢！
-
-//首先需要安装库  1.adafruitmotor-shield    2.NewPing    3.Servo 一般默认安装好的 
 
 #include <AFMotor.h>  
 #include <NewPing.h>
@@ -9,7 +6,7 @@
 #define TRIG_PIN A0 
 #define ECHO_PIN A1 
 #define MAX_DISTANCE 200 
-#define MAX_SPEED 190 // 速度控制
+#define MAX_SPEED 190 // speed control
 #define MAX_SPEED_OFFSET 20
 
 NewPing sonar(TRIG_PIN, ECHO_PIN, MAX_DISTANCE); 

@@ -1,7 +1,7 @@
-% ÂİĞı½°»ùÆµ¼ì²âÆ÷
+% èºæ—‹æ¡¨åŸºé¢‘æ£€æµ‹å™¨
 % [data,FS]=audioread('InRoom4.wav');
 % [data,FS]=wavread('InRoom8.wav');
-% 221101 ĞŞ¸ÄÎª´ÓX:ad.i16ÖĞ¶ÁÈ¡²ÉÑùÎÄ¼şµÄ°æ±¾¡£
+% 221101 ä¿®æ”¹ä¸ºä»X:ad.i16ä¸­è¯»å–é‡‡æ ·æ–‡ä»¶çš„ç‰ˆæœ¬ã€‚
 
 % FS=44100;
 % fname='InRoom.44100.f32'
@@ -13,13 +13,13 @@
 % figure(1);
 % plot(tt,data);
 % xlabel('time /s');
-% title(['ĞÅºÅ²¨ĞÎ ',fname]);
+% title(['ä¿¡å·æ³¢å½¢ ',fname]);
 
 
 FS=16000;
 
 adFileName='x:\ad.i16';
-fH=5000;%ÆµÂÊ·ÖÎöÉÏÏŞ
+fH=5000;%é¢‘ç‡åˆ†æä¸Šé™
 
 line_iast=[];
 line_num2=0;
@@ -31,7 +31,7 @@ bUAV=0;
 ti=0;
 fileCnt=-1;
 while (1)
-% for ti=1:length(tt)%Ã¿ÃëÒ»´Î
+% for ti=1:length(tt)%æ¯ç§’ä¸€æ¬¡
 %     idx=(1:FS)+(ti-1)*FS;
 %     d1=data(idx);
     fid=fopen(adFileName,'rb');
@@ -46,7 +46,7 @@ while (1)
         head=fread(fid,4,'int16');        
     end
     
-    if fileCnt~=head(1)%ĞÂµÄÊı¾İÖ¡
+    if fileCnt~=head(1)%æ–°çš„æ•°æ®å¸§
         ti=ti+1;
         FLEN=head(4);
 
@@ -78,16 +78,16 @@ while (1)
         % imagesc(f_o(1:1000),t_o,(D_TF(:,1:1000)));
         xlabel('freq /Hz');
         ylabel('time /s');
-        title('Ê±ÆµÆ×');
+        title('æ—¶é¢‘è°±');
 
         subplot(2,2,2);plot(f_o(fidx),D_TF(fidx));
-        title('¹¦ÂÊÆ×');
+        title('åŠŸç‡è°±');
         [line_ias,line_num]=line_detect_be_func(D_TF(fidx),15,6,6,10);
         bFreqTmp=zeros(1,4);
         bFreqCnt=0;
 
         if line_num>0
-            %Ğ³²¨ÅĞ¶Ï
+            %è°æ³¢åˆ¤æ–­
             line_fab=[f_o(line_ias(:,1)).',line_ias(:,2),zeros(line_num,1)];
             for bi=1:(line_num-1)
                for bii=(bi+1):line_num
@@ -127,14 +127,14 @@ while (1)
         t_wav=(1:length(dwav))*100/FS;
         plot(t_wav,dwav,'b',t_wav,dwav2,'r',t_wav,dwav*0,'b');
         axis('tight');
-        title('ĞÅºÅ²¨ĞÎ');
+        title('ä¿¡å·æ³¢å½¢');
 
         subplot(2,2,3);
         plot(baseFreq,'b.');
         axis([0  60  0  1000]);
-        title(['»ùÆµ ',num2str(round(baseFreq(60,:)*10)/10)]);
+        title(['åŸºé¢‘ ',num2str(round(baseFreq(60,:)*10)/10)]);
 
-    end%if fileCnt~=head(1)%ĞÂµÄÊı¾İÖ¡
+    end%if fileCnt~=head(1)%æ–°çš„æ•°æ®å¸§
     fclose(fid);
     pause(0.01);
 end%while (1)
